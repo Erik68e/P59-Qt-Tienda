@@ -18,7 +18,7 @@ Tienda::Tienda(QWidget *parent)
     QStringList cabecera = {"Cantidad","Producto","P. Unitario","Subtotal"};
     ui->outDetalle->setColumnCount(4);
     ui->outDetalle->setHorizontalHeaderLabels(cabecera);
-    // Inicializaaar las variables
+    // Inicializar las variables
     m_subtotal = 0;
 }
 
@@ -26,9 +26,11 @@ Tienda::~Tienda()
 {
     delete ui;
 }
+
 /**
  * @brief Tienda::cargarProductos Cargar la lista de productos de la tienda
  */
+
 void Tienda::cargarProductos()
 {
     // Crear productos "quemados" en el codigo
@@ -36,7 +38,6 @@ void Tienda::cargarProductos()
     m_productos.append(new Producto(2,"Pan",0.15));
     m_productos.append(new Producto(3,"Queso",2.50));
     // Podria leerse de una base de datos, de un archivo o incluso de internet
-
 }
 
 void Tienda::calcular(float stProducto)
@@ -92,4 +93,50 @@ void Tienda::on_btnAgregar_released()
     calcular(subTotal);
 }
 
+QString Tienda::resumenCompra()
+{
+    // Validar que no se agregen con 0 cantidad
+    int cantidad = ui -> inCantidad->value();
+    if(cantidad == 0){
+        ;
+    }
+    // Obtener los datos de la GUI
+    int i = ui->inProducto->currentIndex();
+    Producto *p = m_productos.at(i);
 
+    // Calcular el subtotal del producto
+    float subTotal = p->precio() * cantidad;
+
+    QString str = "";
+        str.append("\t\t-  -  Detalle de la Compra  -  -\n");
+        str.append("-----------------------------------------------------------------------------------------------\n");
+        str.append("             |  - Cantidad -  |  - Producto -  |  - P. Unitarios -  |  - Subtotal -  |\n");
+        str.append("                      " + QString::number(cantidad) + "                   " + (p->nombre()) + "                " + QString::number(p->precio(), 'f',2) + "                   " + QString::number(subTotal, 'f',2));
+        return str;
+}
+
+void Tienda::on_facturar_released()
+{
+    QString nombre = ui -> inNombre -> text();
+    QString cedula = ui -> inCedula -> text();
+    QString telefono = ui -> inTelefono -> text();
+    QString email = ui -> inEmail -> text();
+    if(nombre == "" || cedula == "" || email == "" || telefono == ""){
+        QMessageBox::warning(this,"Advertencia", "No hay detalles de compra, ni informacion del cliente");
+        return;
+    }
+    qDebug()<< nombre;
+    // Crear un objeto de la ventana que queremos invocar
+    Factura *dialogo = new Factura(this);
+    dialogo->datos(ui->inCedula->text(),
+                   ui->inNombre->text(),
+                   ui->inTelefono->text(),
+                   ui->inEmail->text(),
+                   ui->inDireccion->toPlainText());
+    dialogo->tota(ui->outSubtotal->text(),
+                  ui->outIVA->text(),
+                  ui->outTotal->text());
+
+    dialogo->fecha();
+    dialogo->exec();
+}
