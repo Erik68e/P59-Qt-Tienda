@@ -127,13 +127,13 @@ QString Factura::infoCliente()
 {
     datos(m_nombre,m_cedula,telefono(),email(),direccion());
     QString str = "";
-    str.append("      -  -  Informacion del Cliente  -  -\n");
+    str.append(tr("      -  -  Informacion del Cliente  -  -\n"));
     str.append("----------------------------------------------\n");
-    str.append("* Cedula:    " + m_cedula);
-    str.append("\n* Nombre:    " + m_nombre);
-    str.append("\n* Telefono:  " + m_telefono);
-    str.append("\n* E-mail:     " + m_email);
-    str.append("\n* Direccion:  " + m_direccion);
+    str.append(tr("* Cedula:    ") + m_cedula);
+    str.append(tr("\n* Nombre:    ") + m_nombre);
+    str.append(tr("\n* Telefono:  ") + m_telefono);
+    str.append(tr("\n* E-mail:     ") + m_email);
+    str.append(tr("\n* Direccion:  ") + m_direccion);
     return str;
 }
 
@@ -164,18 +164,18 @@ void Factura::guardar()
         // Crear un stream de texto
         QTextStream salida(&archivo);
         // Enviar los datos del resultado a la salida
-        salida << " Fecha: ";
+        salida << tr(" Fecha: ");
         salida << ui->outFecha->text();
         salida << "\n" << endl;
         salida << ui->outCliente->toPlainText();
         salida << "\n" << endl;
         salida << ui->outResumenCompra->toPlainText();
-        salida << "\n - - Totales - - " << endl;
-        salida << " * SubTotal: ";
+        salida << tr("\n - - Totales - - ") << endl;
+        salida << tr(" * SubTotal: ");
         salida << ui->outSubTotal->text();
-        salida << "\n * Iva(12%): ";
+        salida << tr("\n * Iva(12%): ");
         salida << ui->outIva->text();
-        salida << "\n * Total: ";
+        salida << tr("\n * Total: ");
         salida << ui->outTotal->text();
 
     }else{

@@ -34,6 +34,7 @@ public:
     void datos(QString nombre, QString cedula, QString telefono, QString email, QString direccion);
     void tota(QString subtotal, QString iva, QString total);
     QString infoCliente();
+    QString resumenCompra();
 
     const QString &cedula() const;
     void setCedula(const QString &newCedula);

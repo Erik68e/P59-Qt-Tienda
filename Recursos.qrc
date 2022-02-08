@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>Recursos/cesta-de-la-compra.png</file>
+        <file>tienda_en.qm</file>
     </qresource>
 </RCC>

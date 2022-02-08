@@ -15,7 +15,7 @@ Tienda::Tienda(QWidget *parent)
         ui->inProducto->addItem(p->nombre());
     }
     // Configurar cabecera de la tabla
-    QStringList cabecera = {"Cantidad","Producto","P. Unitario","Subtotal"};
+    QStringList cabecera = {tr("Cantidad"),tr("Producto"),tr("P. Unitario"),tr("Subtotal")};
     ui->outDetalle->setColumnCount(4);
     ui->outDetalle->setHorizontalHeaderLabels(cabecera);
     // Inicializar las variables
@@ -34,9 +34,9 @@ Tienda::~Tienda()
 void Tienda::cargarProductos()
 {
     // Crear productos "quemados" en el codigo
-    m_productos.append(new Producto(1,"Leche",0.80));
-    m_productos.append(new Producto(2,"Pan",0.15));
-    m_productos.append(new Producto(3,"Queso",2.50));
+    m_productos.append(new Producto(1,tr("Leche"),0.80));
+    m_productos.append(new Producto(2,tr("Pan"),0.15));
+    m_productos.append(new Producto(3,tr("Queso"),2.50));
     // Podria leerse de una base de datos, de un archivo o incluso de internet
 }
 
@@ -108,9 +108,9 @@ QString Tienda::resumenCompra()
     float subTotal = p->precio() * cantidad;
 
     QString str = "";
-        str.append("\t\t-  -  Detalle de la Compra  -  -\n");
+        str.append(tr("\t\t-  -  Detalle de la Compra  -  -\n"));
         str.append("-----------------------------------------------------------------------------------------------\n");
-        str.append("             |  - Cantidad -  |  - Producto -  |  - P. Unitarios -  |  - Subtotal -  |\n");
+        str.append(tr("             |  - Cantidad -  |  - Producto -  |  - P. Unitarios -  |  - Subtotal -  |\n"));
         str.append("                      " + QString::number(cantidad) + "                   " + (p->nombre()) + "                " + QString::number(p->precio(), 'f',2) + "                   " + QString::number(subTotal, 'f',2));
         return str;
 }
